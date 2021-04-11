@@ -1,0 +1,66 @@
+<! DOCTYPE html >
+< html >
+    < cabeça >
+        < title > CoinMarketCap </ title >
+        < link  rel = " stylesheet " type = " text / css "
+        href = " https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css " >
+        < meta  charset = " utf-8 " >       
+    </ head >
+    < corpo >
+        < nav  aria-label = " breadcrumb " >
+            < ol  class = " breadcrumb " >
+              < li  class = " breadcrumb-item active " aria-current = " page " > Valor do mercado de moedas </ li >
+            </ ol >
+          </ nav >
+        
+          < div  class = " d-flex p-3 bd-highlight " >
+            < div  id = ' coins ' > </ div >
+          </ div >
+       
+
+        < script  type = " text / javascript " >
+            // Minha chave de API
+            var  apikey  =  {
+                chave : 'SUA API KEY AQUI'
+            }
+
+        // GET Fetch Requisition
+        fetch ( 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/map?CMC_PRO_API_KEY='  +
+                apikey . chave )
+                . então ( ( resposta )  =>  {
+                    if ( ! resposta . ok )  lança  novo  erro ( 'Erro ao executar a requisição, status'  +  resposta . status ) ;
+                     resposta de retorno . json ( ) ;
+            } )
+            . então ( ( api )  =>  {
+                
+                var  texto  =  "" ;
+                // Obtenha 10 moedas e símbolos 
+                para ( deixe  i  =  0 ;  i  <  10 ;  i ++ ) {
+
+
+
+                // Mostrar informações da API
+
+                   texto  =  texto  +  `
+                  
+                    <div class = "media">
+                        <img src = "coin.png" class = "align-self-center mr-3" alt = "coin" width = "80" height = "80">
+                        <div class = "media-body">
+                        <h5 class = "mt-2"> $ { api . dados [ i ] . nome } </h5>
+                        <h6 class = "mb-1"> $ { api . dados [ i ] . símbolo } </h6>
+                        <p> $ { api . dados [ i ] . first_historical_data } </p>
+                        </div>
+                    </div>
+               
+                    ` ;
+
+                    documento . getElementById ( "moedas" ) . innerHTML  =  texto ;
+                    
+                }
+            } )
+            . catch ( ( erro )  =>  {
+                console . de erro ( erro . mensagem ) ;
+            } ) ;
+        </ script >    
+    </ body >
+</ html >
